@@ -105,7 +105,6 @@ Zod validation should be installed with Shadcn/ui. Otherwise, you can install it
 ```sh
 npm install zod
 ```
-<<<<<<< HEAD
 
 ---
 
@@ -116,5 +115,3 @@ npm install zod
 [unDraw](https://undraw.co/)
 
 [Mockaroo - Create fake data](https://mockaroo.com/)
-=======
->>>>>>> origin/main
