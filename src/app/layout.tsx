@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Gabriela, Yanone_Kaffeesatz } from 'next/font/google'
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
+import Providers from './providers'
 
 const yanone = Yanone_Kaffeesatz({
   subsets: ['latin', 'latin-ext', 'cyrillic'],
@@ -29,9 +30,12 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang='en'
+        suppressHydrationWarning
         className={`${gabriela.variable} ${yanone.variable}`}
       >
-        <body>{children}</body>
+        <body>
+          <Providers>{children}</Providers>
+        </body>
       </html>
     </ClerkProvider>
   )

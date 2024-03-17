@@ -106,6 +106,12 @@ Zod validation should be installed with Shadcn/ui. Otherwise, you can install it
 npm install zod
 ```
 
+### [Next Themes (Toggler)](https://www.npmjs.com/package/next-themes)
+
+```bash
+npm i next-themes
+```
+
 ---
 
 ## Resources
