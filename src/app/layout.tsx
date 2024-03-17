@@ -1,9 +1,18 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Gabriela, Yanone_Kaffeesatz } from 'next/font/google'
 import './globals.css'
 import { ClerkProvider } from '@clerk/nextjs'
 
-const inter = Inter({ subsets: ['latin'] })
+const yanone = Yanone_Kaffeesatz({
+  subsets: ['latin', 'latin-ext', 'cyrillic'],
+  weight: ['400', '700'],
+  variable: '--font-yanone',
+})
+const gabriela = Gabriela({
+  subsets: ['latin', 'latin-ext', 'cyrillic'],
+  weight: ['400'],
+  variable: '--font-gabriela',
+})
 
 export const metadata: Metadata = {
   title: 'Prague Travel Guide',
@@ -18,10 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang='en'>
-        <body className={inter.className}>
-          <div className='container'>{children}</div>
-        </body>
+      <html
+        lang='en'
+        className={`${gabriela.variable} ${yanone.variable}`}
+      >
+        <body>{children}</body>
       </html>
     </ClerkProvider>
   )
