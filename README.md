@@ -115,3 +115,11 @@ npm install zod
 [unDraw](https://undraw.co/)
 
 [Mockaroo - Create fake data](https://mockaroo.com/)
+
+---
+
+## Custom fonts
+
+1. [layout.tsx](./src/app/layout.tsx) - import, variables, className...
+2. [tailwind.config.ts]('./tailwind.config.ts) - fontFamily...
+3. [global.css](./src/app/globals.css) - font-ff, font-ffh...

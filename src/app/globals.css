@@ -79,7 +79,7 @@
 
 @layer base {
   body {
-    @apply text-2xl text-slate-600 font-ff;
+    @apply text-slate-600 font-ff text-xl;
   }
   h1,
   .h1,
