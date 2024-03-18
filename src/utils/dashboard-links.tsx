@@ -20,4 +20,14 @@ export const links: DashboardLink[] = [
     label: 'Add Article',
     icon: <BiSolidAddToQueue />,
   },
+  {
+    href: '/categories',
+    label: 'Categories',
+    icon: <FaRectangleList />,
+  },
+  {
+    href: '/add-category',
+    label: 'Add Category',
+    icon: <BiSolidAddToQueue />,
+  },
 ]

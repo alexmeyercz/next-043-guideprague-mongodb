@@ -1,3 +1,4 @@
+import CreateArticleForm from '@/components/articles/CreateArticleForm'
 import React, { type FC } from 'react'
 
 const f = '⇒ page.tsx (AddArticlePage):'
@@ -5,7 +6,7 @@ const f = '⇒ page.tsx (AddArticlePage):'
 const AddArticlePage: FC = () => {
   return (
     <div>
-      <h1>AddArticlePage</h1>
+      <CreateArticleForm />
     </div>
   )
 }
