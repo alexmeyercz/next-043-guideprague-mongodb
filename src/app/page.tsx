@@ -9,7 +9,7 @@ const HomePage: FC = () => {
     <div>
       <h1>HomePage</h1>
       <Button asChild>
-        <Link href='/articles'>Articles</Link>
+        <Link href='/dashboard/articles'>Articles</Link>
       </Button>
     </div>
   )

@@ -11,22 +11,22 @@ type DashboardLink = {
 
 export const links: DashboardLink[] = [
   {
-    href: '/articles',
+    href: '/dashboard/articles',
     label: 'Articles',
     icon: <FaRectangleList />,
   },
   {
-    href: '/add-article',
+    href: '/dashboard/add-article',
     label: 'Add Article',
     icon: <BiSolidAddToQueue />,
   },
   {
-    href: '/categories',
+    href: '/dashboard/categories',
     label: 'Categories',
     icon: <FaRectangleList />,
   },
   {
-    href: '/add-category',
+    href: '/dashboard/add-category',
     label: 'Add Category',
     icon: <BiSolidAddToQueue />,
   },
