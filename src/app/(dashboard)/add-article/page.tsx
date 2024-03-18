@@ -1,4 +1,4 @@
-import CreateArticleForm from '@/components/articles/CreateArticleForm'
+import CreateArticleForm from '@/components/CreateArticleForm'
 import React, { type FC } from 'react'
 
 const f = '⇒ page.tsx (AddArticlePage):'
