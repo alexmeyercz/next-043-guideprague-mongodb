@@ -8,12 +8,12 @@ export type ArticleType = {
   title: string
   excerpt: string
   status: string
-  content: string
+  body: string
 }
-export enum status {
-  published = 'published',
-  draft = 'draft',
-  deleted = 'deleted',
+export enum ArticleStatus {
+  Published = 'published',
+  Draft = 'draft',
+  Archived = 'archived',
 }
 
 export const createAndEditArticleSchema = z.object({
@@ -33,7 +33,10 @@ export const createAndEditArticleSchema = z.object({
     .max(200, {
       message: 'Title must be at most 200 characters.',
     }),
-  status: z.nativeEnum(status),
+  body: z.string().min(20, {
+    message: 'Body must be at least 20 characters.',
+  }),
+  status: z.nativeEnum(ArticleStatus),
 })
 
 export type CreateAndEditArticleType = z.infer<
