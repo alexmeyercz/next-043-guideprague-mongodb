@@ -100,10 +100,16 @@ npm install react-icons --save
 
 ### [Zod](https://zod.dev/?id=installation)
 
-Zod validation should be installed with Shadcn/ui. Otherwise, you can install it with:
+Zod validation and react hook form should be installed with Shadcn/ui. Otherwise, you can install it with:
 
 ```sh
 npm install zod
+```
+
+### [React Hook Form](https://react-hook-form.com/)
+
+```bash
+npm install react-hook-form
 ```
 
 ### [Next Themes (Toggler)](https://www.npmjs.com/package/next-themes)
