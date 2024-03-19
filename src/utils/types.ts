@@ -5,6 +5,7 @@ export type ArticleType = {
   createdAt: Date
   updatedAt: Date
   clerkId: string
+  articleSlug: string
   title: string
   excerpt: string
   status: string
@@ -17,6 +18,9 @@ export enum ArticleStatus {
 }
 
 export const createAndEditArticleSchema = z.object({
+  articleSlug: z.string().regex(/^[a-z0-9-]+$/, {
+    message: 'Slug can only contain lowercase letters, numbers, and dashes.',
+  }),
   title: z
     .string()
     .min(2, {

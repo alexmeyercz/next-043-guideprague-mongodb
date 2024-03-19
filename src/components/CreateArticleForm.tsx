@@ -23,6 +23,7 @@ const CreateArticleForm: FC = () => {
     // values must match createAndEditArticleSchema in types.ts
     defaultValues: {
       title: '',
+      articleSlug: '',
       excerpt: '',
       body: '',
       status: ArticleStatus.Draft,
@@ -42,6 +43,10 @@ const CreateArticleForm: FC = () => {
       >
         <h2>add article</h2>
         <div className='grid gap-4 md:grid-cols-2 items-start'>
+          <CustomFormField
+            name='articleSlug'
+            control={form.control}
+          />
           <CustomFormField
             name='title'
             control={form.control}
