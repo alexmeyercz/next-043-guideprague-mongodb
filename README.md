@@ -10,11 +10,15 @@ npm install @clerk/nextjs
 
 Setup:
 
-- layout.tsx
-- .env.local
-- middleware.ts
+- [layout.tsx](./src/app/layout.tsx)
+- [.env.local](./.env.local)
+- [middleware.ts](./src/middleware.ts)
 
 ### [Prisma](https://www.prisma.io/docs/getting-started/quickstart)
+
+Setup:
+
+- [db.ts](./src/utils/tb.ts)
 
 ```bash
 # install
@@ -24,6 +28,16 @@ npm install prisma --save-dev
 ```bash
 # initialize with mongodb provider
 npx prisma init --datasource-provider mongodb
+```
+
+Before pushing the database, add database name to the .env file.
+
+If you type `test`, it will be named `test`. If you type `typeanynameinenvbeforepush`, it will be named `typeanynameinenvbeforepush`.
+
+You can easily drop database from mongodb
+
+```bash
+DATABASE_URL="mongodb+srv://alexmeyercz:<password>@cluster0.ryshfou.mongodb.net/typeanynameinenvbeforepush"
 ```
 
 ```bash
@@ -133,5 +147,5 @@ npm i next-themes
 ## Custom fonts
 
 1. [layout.tsx](./src/app/layout.tsx) - import, variables, className...
-2. [tailwind.config.ts]('./tailwind.config.ts) - fontFamily...
+2. [tailwind.config.ts](./tailwind.config.ts) - fontFamily...
 3. [global.css](./src/app/globals.css) - font-ff, font-ffh...
