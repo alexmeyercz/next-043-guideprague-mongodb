@@ -1,19 +1,21 @@
 import * as z from 'zod'
 
 export type ArticleType = {
-  // form fields
-  title: string
-  // auto
+  // prefilled/auto
   id: string
+  clerkId: string
   createdAt: Date
   updatedAt: Date
-  clerkId: string
+  // form fields
+  title: string
 }
-export enum ArticleStatus {
-  Published = 'published',
-  Draft = 'draft',
-  Archived = 'archived',
-}
+
+// Enum in TypeScript are a special type that allows you to define a set of named constants. They can be numeric or string based.
+// export enum ArticleStatus {
+//   Published = 'published',
+//   Draft = 'draft',
+//   Archived = 'archived',
+// }
 
 export const createAndEditArticleSchema = z.object({
   title: z.string().min(2, {

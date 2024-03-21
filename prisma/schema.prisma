@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Article {
-  // automatic fields
+  // prefilled/auto
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   clerkId   String
   createdAt DateTime @default(now())

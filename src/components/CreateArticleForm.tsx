@@ -1,11 +1,13 @@
 'use client'
 
 import React, { type FC } from 'react'
+
+// zod and react-hook-form
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
-  ArticleStatus,
+  // ArticleStatus,
   createAndEditArticleSchema,
   type CreateAndEditArticleType,
 } from '@/utils/types'
@@ -39,7 +41,7 @@ const CreateArticleForm: FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='bg-muted p-8 rounded'
       >
-        <h2>add article</h2>
+        <h2>Add Article</h2>
         <div className='grid gap-4 md:grid-cols-2 items-start'>
           <CustomFormField
             name='title'
@@ -48,9 +50,9 @@ const CreateArticleForm: FC = () => {
 
           <Button
             type='submit'
-            className='self-end capitalize'
+            className='self-end'
           >
-            Create article
+            Create Article
           </Button>
         </div>
       </form>
