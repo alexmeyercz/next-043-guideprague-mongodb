@@ -16,6 +16,11 @@ import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { CustomFormField } from './FormComponents'
 
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { createArticleAction } from '@/utils/actions'
+import { useToast } from '@/components/ui/use-toast'
+import { useRouter } from 'next/navigation'
+
 const f = '⇒ CreateArticleForm.tsx:'
 
 const CreateArticleForm: FC = () => {
@@ -28,8 +33,30 @@ const CreateArticleForm: FC = () => {
     },
   })
 
+  const queryClient = useQueryClient()
+  const { toast } = useToast()
+  const router = useRouter()
+  const { mutate, isPending } = useMutation({
+    mutationFn: (values: CreateAndEditArticleType) =>
+      createArticleAction(values),
+    onSuccess: (data) => {
+      if (!data) {
+        toast({
+          description: 'there was an error',
+        })
+        return
+      }
+      toast({ description: 'article created' })
+      queryClient.invalidateQueries({ queryKey: ['articles'] })
+
+      router.push('/dashboard/articles')
+      // form.reset();
+    },
+  })
+
   function onSubmit(values: CreateAndEditArticleType) {
     console.log(f, 'values →', values)
+    mutate(values)
   }
 
   // 2. Define submit handler
@@ -51,8 +78,9 @@ const CreateArticleForm: FC = () => {
           <Button
             type='submit'
             className='self-end'
+            disabled={isPending}
           >
-            Create Article
+            {isPending ? 'Loading...' : 'Create Article'}
           </Button>
         </div>
       </form>

@@ -149,3 +149,15 @@ npm i next-themes
 1. [layout.tsx](./src/app/layout.tsx) - import, variables, className...
 2. [tailwind.config.ts](./tailwind.config.ts) - fontFamily...
 3. [global.css](./src/app/globals.css) - font-ff, font-ffh...
+
+---
+
+# Checklists
+
+## Add form field
+
+### Add form type
+
+- [shema.prisma](./prisma/schema.prisma) Add the field to the model.
+- [Drop database](https://cloud.mongodb.com/v2/65f6c1f36b3220482bbfa6d7#/clusters) (ONLY **BEFORE** REAL DATA ARE ADDED)
+- [FormComponents.tsx](./src/components/FormComponents.tsx) Add fieldprops type and field in case it doeesn't exist
