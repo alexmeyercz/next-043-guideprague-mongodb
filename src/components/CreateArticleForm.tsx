@@ -7,14 +7,14 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
-  // ArticleStatus,
+  ArticleStatus,
   createAndEditArticleSchema,
   type CreateAndEditArticleType,
 } from '@/utils/types'
 
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import { CustomFormField } from './FormComponents'
+import { CustomFormField, CustomFormSelect } from './FormComponents'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createArticleAction } from '@/utils/actions'
@@ -30,6 +30,7 @@ const CreateArticleForm: FC = () => {
     // values must match createAndEditArticleSchema in types.ts
     defaultValues: {
       title: '',
+      status: ArticleStatus.Draft,
     },
   })
 
@@ -73,6 +74,12 @@ const CreateArticleForm: FC = () => {
           <CustomFormField
             name='title'
             control={form.control}
+          />
+          <CustomFormSelect
+            name='status'
+            control={form.control}
+            items={Object.values(ArticleStatus)}
+            labelText='Status'
           />
 
           <Button

@@ -28,8 +28,11 @@ export async function createArticleAction(
   console.log(f, 'Simulating a long running operation...')
   await new Promise((resolve) => setTimeout(resolve, 3000))
   console.log(f, '... simulating complete.')
+
+  // get userId
   const userId = authenticateAndRedirect()
   console.log(f, 'createArticleAction(): userId →', userId)
+
   try {
     createAndEditArticleSchema.parse(values)
     const article: ArticleType = await prisma.article.create({

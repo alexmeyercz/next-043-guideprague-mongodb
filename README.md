@@ -154,10 +154,10 @@ npm i next-themes
 
 # Checklists
 
-## Add form field
-
-### Add form type
+## Add form field to the article form
 
 - [shema.prisma](./prisma/schema.prisma) Add the field to the model.
 - [Drop database](https://cloud.mongodb.com/v2/65f6c1f36b3220482bbfa6d7#/clusters) (ONLY **BEFORE** REAL DATA ARE ADDED)
-- [FormComponents.tsx](./src/components/FormComponents.tsx) Add fieldprops type and field in case it doeesn't exist
+- [FormComponents.tsx](./src/components/FormComponents.tsx) Add **fieldprops** type and **field** in case it doesn't exist
+- [types.ts](./src/utils/types.ts) - update **type**, define **enum** (optionally) and **schema**
+- [CreateArticleForm.tsx](./src/components/CreateArticleForm.tsx) - add **field** to the form, import **field** (optional), default value
