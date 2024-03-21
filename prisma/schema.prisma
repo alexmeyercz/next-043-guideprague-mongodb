@@ -14,20 +14,11 @@ datasource db {
 }
 
 model Article {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  articleSlug String   @unique
-  excerpt     String?
-  body        String
-  clerkId     String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  status      String
-}
-
-model Category {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
-  title        String
-  categorySlug String @unique
-  status       String
+  // automatic fields
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // form fields
+  title     String
 }

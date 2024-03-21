@@ -12,7 +12,7 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import { CustomFormField, CustomFormSelect } from './FormComponents'
+import { CustomFormField } from './FormComponents'
 
 const f = '⇒ CreateArticleForm.tsx:'
 
@@ -23,10 +23,6 @@ const CreateArticleForm: FC = () => {
     // values must match createAndEditArticleSchema in types.ts
     defaultValues: {
       title: '',
-      articleSlug: '',
-      excerpt: '',
-      body: '',
-      status: ArticleStatus.Draft,
     },
   })
 
@@ -35,6 +31,8 @@ const CreateArticleForm: FC = () => {
   }
 
   // 2. Define submit handler
+  // -- do something with form values
+  // -- this will be type-safe and validated
   return (
     <Form {...form}>
       <form
@@ -44,26 +42,8 @@ const CreateArticleForm: FC = () => {
         <h2>add article</h2>
         <div className='grid gap-4 md:grid-cols-2 items-start'>
           <CustomFormField
-            name='articleSlug'
-            control={form.control}
-          />
-          <CustomFormField
             name='title'
             control={form.control}
-          />
-          <CustomFormField
-            name='excerpt'
-            control={form.control}
-          />
-          <CustomFormField
-            name='body'
-            control={form.control}
-          />
-          <CustomFormSelect
-            name='status'
-            control={form.control}
-            labelText='status'
-            items={Object.values(ArticleStatus)}
           />
 
           <Button
