@@ -95,7 +95,7 @@ npx shadcn-ui@latest init
 ```
 
 ```sh
-npx shadcn-ui@latest add button form input dropdown-menu select toast badge separator card skeleton
+npx shadcn-ui@latest add button form input dropdown-menu select toast badge separator card skeleton checkbox switch
 ```
 
 ### [Lucide](https://lucide.dev/guide/installation)
@@ -130,6 +130,18 @@ npm install react-hook-form
 
 ```bash
 npm i next-themes
+```
+
+### [Tailwind Merge](https://www.npmjs.com/package/tailwind-merge)
+
+```bash
+npm i tailwind-merge
+```
+
+### [CLSX](https://www.npmjs.com/package/clsx)
+
+```bash
+npm i clsx
 ```
 
 ---
