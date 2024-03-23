@@ -42,19 +42,21 @@ const CreateCategoryForm: FC = () => {
   const router = useRouter()
   const { mutate, isPending } = useMutation({
     mutationFn: (values: CreateAndEditCategoryType) =>
+      // to simulate error replace `createCategoryAction(values)` with Promise.resolve(null)
       createCategoryAction(values),
     onSuccess: (data) => {
       if (!data) {
-        console.warn(f, 'there was an error')
         toast({
-          description: 'there was an error',
+          title: 'Error!',
+          description: 'there was an error while creating a category.',
+          variant: 'destructive',
         })
         return
       }
       toast({
-        title: 'Success',
-        // description: 'The category was successfully created',
-        // variant: 'success',
+        title: 'Success!',
+        description: 'The category was successfully created.',
+        variant: 'success',
       })
       queryClient.invalidateQueries({ queryKey: ['articles'] })
       queryClient.invalidateQueries({ queryKey: ['categories'] })
@@ -96,7 +98,7 @@ const CreateCategoryForm: FC = () => {
             className='self-end'
             disabled={isPending}
           >
-            {isPending ? 'Loading...' : 'Create Article'}
+            {isPending ? 'Loading...' : 'Create Category'}
           </Button>
         </div>
       </form>

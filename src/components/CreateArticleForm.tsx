@@ -39,15 +39,22 @@ const CreateArticleForm: FC = () => {
   const router = useRouter()
   const { mutate, isPending } = useMutation({
     mutationFn: (values: CreateAndEditArticleType) =>
+      // to simulate error replace `createArticleAction(values)` with `Promise.resolve(null)`
       createArticleAction(values),
     onSuccess: (data) => {
       if (!data) {
         toast({
-          description: 'there was an error',
+          title: 'Error!',
+          description: 'there was an error while creating an article.',
+          variant: 'destructive',
         })
         return
       }
-      toast({ description: 'article created' })
+      toast({
+        title: 'Success!',
+        description: 'The article was successfully created.',
+        variant: 'success',
+      })
       queryClient.invalidateQueries({ queryKey: ['articles'] })
       queryClient.invalidateQueries({ queryKey: ['categories'] })
 
