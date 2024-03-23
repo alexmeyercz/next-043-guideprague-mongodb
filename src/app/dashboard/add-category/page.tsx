@@ -14,7 +14,7 @@ import {
 import { useUser } from '@clerk/clerk-react'
 
 // components
-import CreateCategoryForm from '@/components/CreateArticleForm'
+import CreateCategoryForm from '@/components/CreateCategoryForm'
 import Spinner from '@/components/utils/Spinner'
 import NoAccess from '@/components/utils/NoAccess'
 

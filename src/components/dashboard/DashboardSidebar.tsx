@@ -20,13 +20,8 @@ const DashboardSidebar: FC = () => {
 
   const { isSignedIn, user, isLoaded } = useUser()
 
-  // console.log(f, 'user →', user)
-
-  // console.log(f, 'user.publicMetadata →', user.publicMetadata)
-
   // set const clerkPublicRole to user.publicMetadata.role or if it's not set, then to 'user'
   const clerkPublicRole = user?.publicMetadata?.role || 'user'
-  console.log(f, 'clerkPublicRole →', clerkPublicRole)
 
   if (!isLoaded) {
     return (

@@ -7,30 +7,33 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
-  ArticleStatus,
-  createAndEditArticleSchema,
-  type CreateAndEditArticleType,
+  createAndEditCategorySchema,
+  type CreateAndEditCategoryType,
 } from '@/utils/types'
 
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
-import { CustomFormField, CustomFormSelect } from './FormComponents'
+import {
+  CustomFormField,
+  CustomFormSimpleSwitch,
+  CustomFormSwitch,
+} from './FormComponents'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { createArticleAction } from '@/utils/actions'
+import { createCategoryAction } from '@/utils/actions'
 import { useToast } from '@/components/ui/use-toast'
 import { useRouter } from 'next/navigation'
 
-const f = '⇒ CreateArticleForm.tsx:'
+const f = '⇒ CreateCategoryForm.tsx (CreateCategoryForm):'
 
-const CreateArticleForm: FC = () => {
+const CreateCategoryForm: FC = () => {
   // 1. Define your form.
-  const form = useForm<CreateAndEditArticleType>({
-    resolver: zodResolver(createAndEditArticleSchema),
-    // values must match createAndEditArticleSchema in types.ts
+  const form = useForm<CreateAndEditCategoryType>({
+    resolver: zodResolver(createAndEditCategorySchema),
+    // values must match createAndEditCategorySchema in types.ts
     defaultValues: {
-      title: '',
-      status: ArticleStatus.Draft,
+      name: '',
+      status: true,
     },
   })
 
@@ -38,25 +41,30 @@ const CreateArticleForm: FC = () => {
   const { toast } = useToast()
   const router = useRouter()
   const { mutate, isPending } = useMutation({
-    mutationFn: (values: CreateAndEditArticleType) =>
-      createArticleAction(values),
+    mutationFn: (values: CreateAndEditCategoryType) =>
+      createCategoryAction(values),
     onSuccess: (data) => {
       if (!data) {
+        console.warn(f, 'there was an error')
         toast({
           description: 'there was an error',
         })
         return
       }
-      toast({ description: 'article created' })
+      toast({
+        title: 'Success',
+        // description: 'The category was successfully created',
+        // variant: 'success',
+      })
       queryClient.invalidateQueries({ queryKey: ['articles'] })
       queryClient.invalidateQueries({ queryKey: ['categories'] })
 
-      router.push('/dashboard/articles')
+      router.push('/dashboard/categories')
       // form.reset();
     },
   })
 
-  function onSubmit(values: CreateAndEditArticleType) {
+  function onSubmit(values: CreateAndEditCategoryType) {
     console.log(f, 'values →', values)
     mutate(values)
   }
@@ -70,17 +78,17 @@ const CreateArticleForm: FC = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className='bg-muted p-8 rounded'
       >
-        <h2>Add Article</h2>
+        <h2>Add Category</h2>
         <div className='grid gap-4 md:grid-cols-2 items-start'>
           <CustomFormField
-            name='title'
+            name='name'
             control={form.control}
           />
-          <CustomFormSelect
+          <CustomFormSwitch
             name='status'
             control={form.control}
-            items={Object.values(ArticleStatus)}
-            labelText='Status'
+            labelText='Category status'
+            descriptionText='Is this category active?'
           />
 
           <Button
@@ -95,4 +103,4 @@ const CreateArticleForm: FC = () => {
     </Form>
   )
 }
-export default CreateArticleForm
+export default CreateCategoryForm
