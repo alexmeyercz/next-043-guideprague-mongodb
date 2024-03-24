@@ -82,10 +82,12 @@ const CreateArticleForm: FC = () => {
         <div className='grid gap-4 md:grid-cols-2 items-start'>
           <CustomFormField
             name='title'
+            labelText='Article Title'
             control={form.control}
           />
           <CustomFormField
             name='articleSlug'
+            labelText='Slug (will be used as URL)'
             control={form.control}
           />
           <CustomFormSelect

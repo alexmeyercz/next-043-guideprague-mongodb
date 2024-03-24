@@ -15,18 +15,21 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import CategoryInfo from '@/components/dashboard/CategoryInfo'
+import IconWithText from '@/components/dashboard/IconWithText'
 import DeleteCategoryButton from '@/components/dashboard/DeleteCategoryButton'
+import { Calendar, Edit, RadioTower, Text } from 'lucide-react'
 
 const f = '⇒ CategoryCard.tsx (CategoryCard):'
 
 const CategoryCard: FC<{ category: CategoryType }> = ({ category }) => {
+  console.log(f, 'category →', category)
+  const { categoryStatus, id, name } = category
   return (
     <Card className='bg-muted'>
       <CardHeader>
-        <CardTitle>{category.name}</CardTitle>
+        <CardTitle>{name}</CardTitle>
         <CardDescription>
-          {category.categoryStatus ? 'Active' : 'Inactive'}
+          {categoryStatus ? 'Active' : 'Inactive'}
         </CardDescription>
       </CardHeader>
       <Separator />
@@ -36,8 +39,14 @@ const CategoryCard: FC<{ category: CategoryType }> = ({ category }) => {
           asChild
           size='sm'
         >
-          <Link href={`/dashboard/categories/edit/${category.id}`}>Edit</Link>
+          <Link href={`/dashboard/categories/edit/${id}`}>
+            <IconWithText
+              icon={<Edit />}
+              text='Edit Category'
+            />
+          </Link>
         </Button>
+        <DeleteCategoryButton id={id} />
       </CardFooter>
     </Card>
   )

@@ -12,7 +12,7 @@ import {
   createAndEditCategorySchema,
 } from './types'
 import { redirect } from 'next/navigation'
-import { Prisma } from '@prisma/client'
+import { Article, Category, Prisma } from '@prisma/client'
 
 const f = '⇒ actions.ts:'
 
@@ -184,5 +184,39 @@ export async function getAllCategoriesAction({
   } catch (error) {
     console.log(f, 'error →', error)
     return { categories: [], count: 0, page: 1, totalPages: 0 }
+  }
+}
+
+export async function deleteArticleAction(id: string): Promise<Article | null> {
+  // const userId = authenticateAndRedirect()
+  try {
+    const article: ArticleType = await prisma.article.delete({
+      where: {
+        id,
+        // clerkId: userId,
+      },
+    })
+    return article
+  } catch (error) {
+    console.log(f, 'error →', error)
+    return null
+  }
+}
+
+export async function deleteCategoryAction(
+  id: string
+): Promise<Category | null> {
+  // const userId = authenticateAndRedirect()
+  try {
+    const category: CategoryType = await prisma.category.delete({
+      where: {
+        id,
+        // clerkId: userId,
+      },
+    })
+    return category
+  } catch (error) {
+    console.log(f, 'error →', error)
+    return null
   }
 }

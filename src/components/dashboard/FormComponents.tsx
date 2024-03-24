@@ -28,18 +28,23 @@ const f = '⇒ FormComponents.tsx (FormComponents):'
 
 type CustomFormFieldProps = {
   name: string
+  labelText?: string
   control: Control<any>
 }
 
 // https://ui.shadcn.com/docs/components/input
-export function CustomFormField({ name, control }: CustomFormFieldProps) {
+export function CustomFormField({
+  name,
+  control,
+  labelText,
+}: CustomFormFieldProps) {
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{name}</FormLabel>
+          <FormLabel>{labelText || name}</FormLabel>
           <FormControl>
             <Input {...field} />
           </FormControl>
