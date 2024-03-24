@@ -1,9 +1,9 @@
 import Spinner from '@/components/utils/Spinner'
 import React, { type FC } from 'react'
 
-const f = '⇒ loading.tsx (LoadingArticlesPage):'
+const f = '⇒ loading.tsx (LoadingCategoriesPage):'
 
-const LoadingArticlesPage: FC = () => {
+const LoadingCategoriesPage: FC = () => {
   return (
     <div>
       <h1>Loading Articles Page...</h1>
@@ -11,4 +11,4 @@ const LoadingArticlesPage: FC = () => {
     </div>
   )
 }
-export default LoadingArticlesPage
+export default LoadingCategoriesPage

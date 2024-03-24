@@ -144,6 +144,12 @@ npm i tailwind-merge
 npm i clsx
 ```
 
+### [Sharp](https://www.npmjs.com/package/sharp)
+
+```bash
+npm i sharp
+```
+
 ---
 
 ## Resources

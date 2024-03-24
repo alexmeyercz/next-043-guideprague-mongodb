@@ -3,7 +3,7 @@
 import React, { type FC } from 'react'
 
 // clerk
-import { useUser } from '@clerk/clerk-react'
+import { currentUser } from '@clerk/nextjs'
 
 // react query
 import {
@@ -24,8 +24,9 @@ import SearchArticlesForm from '@/components/SearchArticlesForm'
 const f = '⇒ pages.tsx (ArticlesPage):'
 
 const ArticlesPage: FC = async () => {
-  // const { isSignedIn, user, isLoaded } = useUser()
-  // const clerkPublicRole = user?.publicMetadata?.role || 'user'
+  const user = await currentUser()
+  const clerkPublicRole = user?.publicMetadata?.role || 'user'
+
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery({
@@ -33,12 +34,12 @@ const ArticlesPage: FC = async () => {
     queryFn: () => getAllArticlesAction({}),
   })
 
-  // if (!isLoaded) {
-  //   return <Spinner />
-  // }
-  // if (isSignedIn && clerkPublicRole !== 'admin') {
-  //   return <NoAccess />
-  // }
+  if (!user) {
+    return <Spinner />
+  }
+  if (user && clerkPublicRole !== 'admin') {
+    return <NoAccess />
+  }
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <SearchArticlesForm />
