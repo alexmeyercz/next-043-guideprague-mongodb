@@ -6,7 +6,7 @@ const f = '⇒ loading.tsx (LoadingCategoriesPage):'
 const LoadingCategoriesPage: FC = () => {
   return (
     <div>
-      <h1>Loading Articles Page...</h1>
+      <h1>Loading Category Page...</h1>
       <Spinner />
     </div>
   )

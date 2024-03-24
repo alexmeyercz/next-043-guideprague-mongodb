@@ -19,7 +19,7 @@ const f = '⇒ SearchArticlesForm.tsx (SearchArticlesForm):'
 const SearchArticlesForm: FC = () => {
   const searchParams = useSearchParams()
   const search = searchParams.get('search') || ''
-  const status = searchParams.get('status') || ''
+  const articleStatus = searchParams.get('articleStatus') || ''
 
   const router = useRouter()
   const pathname = usePathname()
@@ -28,13 +28,13 @@ const SearchArticlesForm: FC = () => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const search = formData.get('search') as string
-    const status = formData.get('status') as ArticleStatus // or as string????
+    const articleStatus = formData.get('articleStatus') as ArticleStatus // or as string????
     console.log(f, 'search →', search)
-    console.log(f, 'status →', status)
+    console.log(f, 'articleStatus →', articleStatus)
 
     let params = new URLSearchParams()
     params.set('search', search)
-    params.set('status', status)
+    params.set('articleStatus', articleStatus)
     router.push(`${pathname}?${params.toString()}`)
   }
   return (
@@ -49,20 +49,20 @@ const SearchArticlesForm: FC = () => {
         defaultValue={search}
       />
       <Select
-        name='status'
-        defaultValue={status}
+        name='articleStatus'
+        defaultValue={articleStatus}
       >
         <SelectTrigger>
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          {['all', ...Object.values(ArticleStatus)].map((status) => {
+          {['all', ...Object.values(ArticleStatus)].map((articleStatus) => {
             return (
               <SelectItem
-                key={status}
-                value={status}
+                key={articleStatus}
+                value={articleStatus}
               >
-                {status}
+                {articleStatus}
               </SelectItem>
             )
           })}

@@ -1,4 +1,3 @@
-// 'use client'
 // react
 import React, { type FC } from 'react'
 
@@ -18,8 +17,8 @@ import { getAllArticlesAction } from '@/utils/actions'
 // components
 import Spinner from '@/components/utils/Spinner'
 import NoAccess from '@/components/utils/NoAccess'
-import ArticlesList from '@/components/ArticlesList'
-import SearchArticlesForm from '@/components/SearchArticlesForm'
+import ArticlesList from '@/components/dashboard/ArticlesList'
+import SearchArticlesForm from '@/components/dashboard/SearchArticlesForm'
 
 const f = '⇒ pages.tsx (ArticlesPage):'
 

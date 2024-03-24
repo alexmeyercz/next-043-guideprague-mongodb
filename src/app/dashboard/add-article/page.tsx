@@ -14,7 +14,7 @@ import {
 import { useUser } from '@clerk/clerk-react'
 
 // components
-import CreateArticleForm from '@/components/CreateArticleForm'
+import CreateArticleForm from '@/components/dashboard/CreateArticleForm'
 import Spinner from '@/components/utils/Spinner'
 import NoAccess from '@/components/utils/NoAccess'
 

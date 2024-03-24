@@ -13,9 +13,9 @@ import Logo from '@/components/utils/Logo'
 import Spinner from '@/components/utils/Spinner'
 import SkeletonSidebar from '../utils/SkeletonSidebar'
 
-const f = '⇒ DashboardSidebar.tsx (DashboardSidebar):'
+const f = '⇒ Sidebar.tsx (Sidebar):'
 
-const DashboardSidebar: FC = () => {
+const Sidebar: FC = () => {
   const pathname = usePathname()
 
   const { isSignedIn, user, isLoaded } = useUser()
@@ -64,4 +64,4 @@ const DashboardSidebar: FC = () => {
     )
   }
 }
-export default DashboardSidebar
+export default Sidebar

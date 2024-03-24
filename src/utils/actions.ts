@@ -17,9 +17,9 @@ import { Prisma } from '@prisma/client'
 const f = '⇒ actions.ts:'
 
 function authenticateAndRedirect(): string {
-  console.log('authenticateAndRedirect()')
+  // console.log('authenticateAndRedirect()')
   const { userId } = auth()
-  console.log(f, 'getting userId from Clerk →', userId)
+  // console.log(f, 'getting userId from Clerk →', userId)
 
   if (!userId) redirect('/')
   return userId
@@ -31,11 +31,11 @@ export async function createArticleAction(
   // simulate a long running operation
   console.log(f, 'createArticleAction(): simulate delay...')
   await new Promise((resolve) => setTimeout(resolve, 1000))
-  console.log(f, '... simulate complete.')
+  // console.log(f, '... simulate complete.')
 
   // get userId
   const userId = authenticateAndRedirect()
-  console.log(f, 'getting userId from authenticateAndRedirect() →', userId)
+  // console.log(f, 'getting userId from authenticateAndRedirect() →', userId)
 
   try {
     createAndEditArticleSchema.parse(values)
@@ -58,11 +58,11 @@ export async function createCategoryAction(
   // simulate a long running operation
   console.log(f, 'createCategoryAction(): simulate delay...')
   await new Promise((resolve) => setTimeout(resolve, 1000))
-  console.log(f, '... simulate complete.')
+  // console.log(f, '... simulate complete.')
 
   // get userId
   const userId = authenticateAndRedirect()
-  console.log(f, 'getting userId from authenticateAndRedirect() →', userId)
+  // console.log(f, 'getting userId from authenticateAndRedirect() →', userId)
 
   try {
     createAndEditCategorySchema.parse(values)
@@ -81,13 +81,13 @@ export async function createCategoryAction(
 
 type GetAllArticlesActionType = {
   search?: string
-  status?: string
+  articleStatus?: string
   page?: number
   limit?: number
 }
 export async function getAllArticlesAction({
   search,
-  status,
+  articleStatus,
   page = 1,
   limit = 2,
 }: GetAllArticlesActionType): Promise<{
@@ -96,7 +96,7 @@ export async function getAllArticlesAction({
   page: number
   totalPages: number
 }> {
-  const userId = authenticateAndRedirect()
+  // const userId = authenticateAndRedirect()
   try {
     let whereClause: Prisma.ArticleWhereInput = {
       // just of the current user
@@ -110,21 +110,18 @@ export async function getAllArticlesAction({
           {
             title: {
               contains: search,
+              mode: 'insensitive',
             },
-          },
-          {
-            status: {
-              contains: search,
-            },
+            // add here more fields that you want to include to the full text search
           },
         ],
       }
     }
 
-    if (status && status !== 'all') {
+    if (articleStatus && articleStatus !== 'all') {
       whereClause = {
         ...whereClause,
-        status: status,
+        articleStatus: articleStatus,
       }
     }
 
@@ -139,5 +136,53 @@ export async function getAllArticlesAction({
   } catch (error) {
     console.warn(f, 'error →', error)
     return { articles: [], count: 0, page: 1, totalPages: 0 }
+  }
+}
+
+type getAllCategoriesActionProps = {
+  search?: string
+  categoryStatus?: 'any' | boolean
+  page?: number
+  limit?: number
+}
+
+export async function getAllCategoriesAction({
+  search,
+  page,
+  limit,
+}: getAllCategoriesActionProps): Promise<{
+  categories: CategoryType[]
+  count: number
+  page: number
+  totalPages: number
+}> {
+  try {
+    let whereClause: Prisma.CategoryWhereInput = {}
+
+    if (search) {
+      whereClause = {
+        ...whereClause,
+        OR: [
+          {
+            name: {
+              contains: search,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      }
+    }
+
+    const categories: CategoryType[] = await prisma.category.findMany({
+      where: whereClause,
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
+
+    return { categories, count: 0, page: 1, totalPages: 0 }
+  } catch (error) {
+    console.log(f, 'error →', error)
+    return { categories: [], count: 0, page: 1, totalPages: 0 }
   }
 }

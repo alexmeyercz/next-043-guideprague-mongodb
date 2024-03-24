@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { ArticleType } from '@/utils/types'
+import { type ArticleType } from '@/utils/types'
 
 import Link from 'next/link'
 
@@ -15,8 +15,8 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import ArticleInfo from '@/components/ArticleInfo'
-import DeleteArticleButton from '@/components/DeleteArticleButton'
+import ArticleInfo from '@/components/dashboard/ArticleInfo'
+import DeleteArticleButton from '@/components/dashboard/DeleteArticleButton'
 
 const f = '⇒ ArticleCard.tsx (ArticleCard):'
 
@@ -25,7 +25,7 @@ const ArticleCard: FC<{ article: ArticleType }> = ({ article }) => {
     <Card className='bg-muted'>
       <CardHeader>
         <CardTitle>{article.title}</CardTitle>
-        <CardDescription>{article.status}</CardDescription>
+        <CardDescription>{article.articleStatus}</CardDescription>
       </CardHeader>
       <Separator />
       <CardContent></CardContent>

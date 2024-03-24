@@ -1,5 +1,5 @@
-import DashboardNavbar from '@/components/dashboard/DashboardNavbar'
-import DashboardSidebar from '@/components/dashboard/DashboardSidebar'
+import Navbar from '@/components/dashboard/Navbar'
+import Sidebar from '@/components/dashboard/Sidebar'
 import React, { type FC } from 'react'
 
 const f = '⇒ layout.tsx (DashboardLayout):'
@@ -13,11 +13,11 @@ const DashboardLayout: FC<DashboardLayoutProps> = ({ children }) => {
     <main className='grid lg:grid-cols-5'>
       {/* first column hide on small screen */}
       <div className='hidden lg:block lg:col-span-1 lg:min-h-screen'>
-        <DashboardSidebar />
+        <Sidebar />
       </div>
       {/* second column hide dropdown on big screen */}
       <div className='lg:col-span-4'>
-        <DashboardNavbar />
+        <Navbar />
         <div className='py-16 px-4 sm:px-8 lg:px-16'>{children}</div>
       </div>
     </main>

@@ -14,9 +14,9 @@ import Link from 'next/link'
 
 // https://ui.shadcn.com/docs/components/dropdown-menu
 
-const f = '⇒ DashboardLinksDropdown.tsx (DashboardLinksDropdown):'
+const f = '⇒ LinksDropdown.tsx (LinksDropdown):'
 
-const DashboardLinksDropdown: FC = () => {
+const LinksDropdown: FC = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
@@ -48,4 +48,4 @@ const DashboardLinksDropdown: FC = () => {
     </DropdownMenu>
   )
 }
-export default DashboardLinksDropdown
+export default LinksDropdown

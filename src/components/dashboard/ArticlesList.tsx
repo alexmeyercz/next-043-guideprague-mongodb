@@ -11,12 +11,13 @@ const f = '⇒ ArticlesList.tsx (ArticlesList):'
 const ArticlesList: FC = () => {
   const searchParams = useSearchParams()
   const search = searchParams.get('search') || ''
-  const status = searchParams.get('status') || ''
+  const articleStatus = searchParams.get('articleStatus') || ''
   const pageNumber = Number(searchParams.get('page')) || 1
 
   const { data, isPending } = useQuery({
-    queryKey: ['articles', search, status, pageNumber],
-    queryFn: () => getAllArticlesAction({ search, status, page: pageNumber }),
+    queryKey: ['articles', search, articleStatus, pageNumber],
+    queryFn: () =>
+      getAllArticlesAction({ search, articleStatus, page: pageNumber }),
   })
 
   const articles = data?.articles || []

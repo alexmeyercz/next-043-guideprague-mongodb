@@ -4,7 +4,7 @@ export type ArticleType = {
   id: string
   // form fields
   title: string
-  status: string
+  articleStatus: string
   // prefilled/auto
   clerkId: string
   createdAt: Date
@@ -22,7 +22,7 @@ export const createAndEditArticleSchema = z.object({
   title: z.string().min(2, {
     message: 'Title must be at least 2 characters',
   }),
-  status: z.nativeEnum(ArticleStatus),
+  articleStatus: z.nativeEnum(ArticleStatus),
 })
 
 export type CreateAndEditArticleType = z.infer<
@@ -35,7 +35,7 @@ export type CategoryType = {
   id: string
   // form fields
   name: string
-  status: boolean
+  categoryStatus: boolean
   // prefilled/auto
   clerkId: string
   createdAt: Date
@@ -45,7 +45,7 @@ export const createAndEditCategorySchema = z.object({
   name: z.string().min(2, {
     message: 'Category name must be at least 2 characters',
   }),
-  status: z.boolean().optional().default(true),
+  categoryStatus: z.boolean().optional().default(true),
 })
 
 export type CreateAndEditCategoryType = z.infer<
