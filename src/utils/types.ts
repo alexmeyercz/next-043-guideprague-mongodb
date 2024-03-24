@@ -4,6 +4,7 @@ export type ArticleType = {
   id: string
   // form fields
   title: string
+  articleSlug: string
   articleStatus: string
   // prefilled/auto
   clerkId: string
@@ -23,6 +24,12 @@ export const createAndEditArticleSchema = z.object({
     message: 'Title must be at least 2 characters',
   }),
   articleStatus: z.nativeEnum(ArticleStatus),
+  articleSlug: z
+    .string()
+    .min(2, { message: 'Slug must be at least 2 characters' })
+    .regex(/^[a-z0-9-]+$/, {
+      message: 'Slug can only contain lowercase letters, numbers, and dashes',
+    }),
 })
 
 export type CreateAndEditArticleType = z.infer<

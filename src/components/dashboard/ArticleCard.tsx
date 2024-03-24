@@ -34,7 +34,15 @@ const ArticleCard: FC<{ article: ArticleType }> = ({ article }) => {
           asChild
           size='sm'
         >
-          <Link href={`/dashboard/articles/edit/${article.id}`}>Edit</Link>
+          <Link href={`/dashboard/articles/edit/${article.articleSlug}`}>
+            Edit
+          </Link>
+        </Button>
+        <Button
+          asChild
+          size='sm'
+        >
+          <Link href={`/${article.articleSlug}`}>View</Link>
         </Button>
       </CardFooter>
     </Card>

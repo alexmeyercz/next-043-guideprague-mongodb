@@ -5,7 +5,7 @@ export default authMiddleware({
   //   publicRoutes: ['/anyone-can-visit-this-route'],
   // Routes that can always be accessed, and have
   // no authentication information
-  ignoredRoutes: ['/'],
+  // ignoredRoutes: ['/'],
   // publicRoutes: any routes except /add-article and /articles
 })
 
@@ -13,5 +13,7 @@ export const config = {
   // Protects all routes, including api/trpc.
   // See https://clerk.com/docs/references/nextjs/auth-middleware
   // for more information about configuring your Middleware
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  // matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  // Protects only the /dashboard route and anything behind it.
+  matcher: ['/dashboard(.*)'],
 }

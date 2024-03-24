@@ -30,6 +30,7 @@ const CreateArticleForm: FC = () => {
     // values must match createAndEditArticleSchema in types.ts
     defaultValues: {
       title: '',
+      articleSlug: '',
       articleStatus: ArticleStatus.Draft,
     },
   })
@@ -81,6 +82,10 @@ const CreateArticleForm: FC = () => {
         <div className='grid gap-4 md:grid-cols-2 items-start'>
           <CustomFormField
             name='title'
+            control={form.control}
+          />
+          <CustomFormField
+            name='articleSlug'
             control={form.control}
           />
           <CustomFormSelect

@@ -18,6 +18,7 @@ model Article {
   // form fields
   title         String
   articleStatus String
+  articleSlug   String   @unique
   // prefilled/auto
   clerkId       String
   createdAt     DateTime @default(now())
