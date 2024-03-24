@@ -78,3 +78,66 @@ export async function createCategoryAction(
     return null
   }
 }
+
+type GetAllArticlesActionType = {
+  search?: string
+  status?: string
+  page?: number
+  limit?: number
+}
+export async function getAllArticlesAction({
+  search,
+  status,
+  page = 1,
+  limit = 2,
+}: GetAllArticlesActionType): Promise<{
+  articles: ArticleType[]
+  count: number
+  page: number
+  totalPages: number
+}> {
+  const userId = authenticateAndRedirect()
+  try {
+    let whereClause: Prisma.ArticleWhereInput = {
+      // just of the current user
+      // clerkId: userId,
+    }
+
+    if (search) {
+      whereClause = {
+        ...whereClause,
+        OR: [
+          {
+            title: {
+              contains: search,
+            },
+          },
+          {
+            status: {
+              contains: search,
+            },
+          },
+        ],
+      }
+    }
+
+    if (status && status !== 'all') {
+      whereClause = {
+        ...whereClause,
+        status: status,
+      }
+    }
+
+    const articles: ArticleType[] = await prisma.article.findMany({
+      where: whereClause,
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
+
+    return { articles, count: 0, page: 1, totalPages: 0 }
+  } catch (error) {
+    console.warn(f, 'error →', error)
+    return { articles: [], count: 0, page: 1, totalPages: 0 }
+  }
+}

@@ -7,7 +7,7 @@ const Logo: FC = () => {
   return (
     <figure>
       <Link href='/'>
-        <figcaption>Guide Prague</figcaption>
+        <figcaption className='text-4xl mb-6'>Guide Prague</figcaption>
       </Link>
     </figure>
   )
