@@ -1,12 +1,31 @@
 import React, { type FC } from 'react'
 
+import EditCategoryForm from '@/components/dashboard/EditCategoryForm'
+import { getSingleCategoryAction } from '@/utils/actions'
+
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query'
+
+interface EditCategoryPageProps {
+  params: { id: string }
+}
+
 const f = '⇒ page.tsx (EditCategoryPage):'
 
-const EditCategoryPage: FC = () => {
+const EditCategoryPage: FC<EditCategoryPageProps> = async ({ params }) => {
+  const { id } = params
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery({
+    queryKey: ['category', id],
+    queryFn: () => getSingleCategoryAction(id),
+  })
   return (
-    <div>
-      <h1>EditCategoryPage</h1>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <EditCategoryForm categoryId={params.id} />
+    </HydrationBoundary>
   )
 }
 export default EditCategoryPage

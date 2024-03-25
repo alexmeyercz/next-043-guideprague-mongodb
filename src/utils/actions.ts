@@ -220,3 +220,88 @@ export async function deleteCategoryAction(
     return null
   }
 }
+
+export async function getSingleArticleAction(
+  articleSlug: string
+): Promise<ArticleType | null> {
+  let article: ArticleType | null = null
+  // const userId = authenticateAndRedirect()
+
+  try {
+    article = await prisma.article.findUnique({
+      where: {
+        articleSlug,
+        // clerkId: userId,
+      },
+    })
+  } catch (error) {
+    article = null
+  }
+  if (!article) {
+    redirect('/articles')
+  }
+  return article
+}
+
+export async function getSingleCategoryAction(
+  id: string
+): Promise<CategoryType | null> {
+  let category: CategoryType | null = null
+  // const userId = authenticateAndRedirect()
+
+  try {
+    category = await prisma.category.findUnique({
+      where: {
+        id,
+        // clerkId: userId,
+      },
+    })
+  } catch (error) {
+    category = null
+  }
+  if (!category) {
+    redirect('/dashboard/categories')
+  }
+  return category
+}
+
+export async function updateArticleAction(
+  articleSlug: string,
+  values: CreateAndEditArticleType
+): Promise<ArticleType | null> {
+  // const userId = authenticateAndRedirect()
+  try {
+    const article: ArticleType = await prisma.article.update({
+      where: {
+        articleSlug,
+        // clerkId: userId,
+      },
+      data: {
+        ...values,
+      },
+    })
+    return article
+  } catch (error) {
+    return null
+  }
+}
+export async function updateCategoryAction(
+  id: string,
+  values: CreateAndEditCategoryType
+): Promise<CategoryType | null> {
+  // const userId = authenticateAndRedirect()
+  try {
+    const category: CategoryType = await prisma.category.update({
+      where: {
+        id,
+        // clerkId: userId,
+      },
+      data: {
+        ...values,
+      },
+    })
+    return category
+  } catch (error) {
+    return null
+  }
+}

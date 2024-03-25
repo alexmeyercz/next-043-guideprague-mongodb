@@ -1,17 +1,31 @@
 import React, { FC } from 'react'
 
+import EditArticleForm from '@/components/dashboard/EditArticleForm'
+import { getSingleArticleAction } from '@/utils/actions'
+
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query'
+
 interface EditArticlePageProps {
-  params: string
+  params: { articleslug: string }
 }
 
 const f = '⇒ page.tsx (EditArticlePage):'
 
-const EditArticlePage: FC<EditArticlePageProps> = ({ params }) => {
-  console.log(f, 'params →', params)
+const EditArticlePage: FC<EditArticlePageProps> = async ({ params }) => {
+  const { articleslug } = params
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery({
+    queryKey: ['article', articleslug],
+    queryFn: () => getSingleArticleAction(articleslug),
+  })
   return (
-    <div>
-      <h1>EditArticlePage</h1>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <EditArticleForm articleSlug={articleslug} />
+    </HydrationBoundary>
   )
 }
 export default EditArticlePage

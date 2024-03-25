@@ -1,10 +1,10 @@
 'use client'
+import { useRouter } from 'next/navigation'
 
 import React, { type FC } from 'react'
 
-// zod and react-hook-form
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
 import {
   ArticleStatus,
@@ -14,72 +14,80 @@ import {
 
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
+import { useToast } from '@/components/ui/use-toast'
+
 import { CustomFormField, CustomFormSelect } from './FormComponents'
 
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { createArticleAction } from '@/utils/actions'
-import { useToast } from '@/components/ui/use-toast'
-import { useRouter } from 'next/navigation'
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query'
 
-const f = '⇒ CreateArticleForm.tsx:'
+import { getSingleArticleAction, updateArticleAction } from '@/utils/actions'
 
-const CreateArticleForm: FC = () => {
-  // 1. Define your form.
-  const form = useForm<CreateAndEditArticleType>({
-    resolver: zodResolver(createAndEditArticleSchema),
-    // values must match createAndEditArticleSchema in types.ts
-    defaultValues: {
-      title: '',
-      articleSlug: '',
-      articleStatus: ArticleStatus.Draft,
-    },
-  })
+const f = '⇒ EditArticleForm.tsx (EditArticleForm):'
 
+type EditArticleFormProps = {
+  articleSlug: string
+}
+const EditArticleForm: FC<EditArticleFormProps> = ({ articleSlug }) => {
   const queryClient = useQueryClient()
   const { toast } = useToast()
   const router = useRouter()
+
+  const { data } = useQuery({
+    queryKey: ['article', articleSlug],
+    queryFn: () => getSingleArticleAction(articleSlug),
+  })
+
   const { mutate, isPending } = useMutation({
     mutationFn: (values: CreateAndEditArticleType) =>
-      // to simulate error replace `createArticleAction(values)` with `Promise.resolve(null)`
-      createArticleAction(values),
+      updateArticleAction(articleSlug, values),
     onSuccess: (data) => {
       if (!data) {
         toast({
           title: 'Error!',
-          description: 'there was an error while creating an article.',
+          description: 'there was an error while updating an article.',
           variant: 'error',
         })
         return
       }
       toast({
         title: 'Success!',
-        description: 'The article was successfully created.',
+        description: 'The article was successfully updated.',
         variant: 'success',
       })
       queryClient.invalidateQueries({ queryKey: ['articles'] })
-      queryClient.invalidateQueries({ queryKey: ['categories'] })
+      queryClient.invalidateQueries({ queryKey: ['article', articleSlug] })
 
       router.push('/dashboard/articles')
       // form.reset();
     },
   })
 
+  // 1. Define your form.
+  const form = useForm<CreateAndEditArticleType>({
+    resolver: zodResolver(createAndEditArticleSchema),
+    defaultValues: {
+      title: data?.title || '',
+      articleSlug: data?.articleSlug || '',
+      articleStatus:
+        (data?.articleStatus as ArticleStatus) || ArticleStatus.Draft,
+    },
+  })
+
+  // 2. Define a submit handler.
   function onSubmit(values: CreateAndEditArticleType) {
-    console.log(f, 'values →', values)
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
     mutate(values)
   }
 
-  // 2. Define submit handler
-  // -- do something with form values
-  // -- this will be type-safe and validated
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className='bg-muted p-8 rounded'
       >
-        <h2>Add Article</h2>
-        <div className='grid gap-4 md:grid-cols-2 items-start'>
+        <h2>edit article</h2>
+        <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-3 items-start'>
           <CustomFormField
             name='title'
             labelText='Article Title'
@@ -96,17 +104,16 @@ const CreateArticleForm: FC = () => {
             items={Object.values(ArticleStatus)}
             labelText='Status'
           />
-
           <Button
             type='submit'
             className='self-end'
             disabled={isPending}
           >
-            {isPending ? 'Loading...' : 'Create Article'}
+            {isPending ? 'Loading...' : 'Save Changes'}
           </Button>
         </div>
       </form>
     </Form>
   )
 }
-export default CreateArticleForm
+export default EditArticleForm
