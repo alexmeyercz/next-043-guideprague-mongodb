@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { getAllArticlesAction } from '@/utils/actions'
 import { useQuery } from '@tanstack/react-query'
 import Spinner from '@/components/utils/Spinner'
+import ComplexPagingContainer from './ComplexPagingContainer'
 
 const f = '⇒ ArticlesList.tsx (ArticlesList):'
 
@@ -20,7 +21,27 @@ const ArticlesList: FC = () => {
       getAllArticlesAction({ search, articleStatus, page: pageNumber }),
   })
 
+  const renderPaging = () => {
+    return (
+      <div className='flex items-center justify-between my-8'>
+        <h2 className='font-semibold text-xl capitalize'>
+          {count} articles found
+        </h2>
+        {totalPages < 2 ? null : (
+          <ComplexPagingContainer
+            currentPage={page}
+            totalPages={totalPages}
+          />
+        )}
+      </div>
+    )
+  }
+
   const articles = data?.articles || []
+
+  const count = data?.count || 0
+  const page = data?.page || 0
+  const totalPages = data?.totalPages || 0
 
   if (isPending) {
     return <Spinner />
@@ -29,7 +50,8 @@ const ArticlesList: FC = () => {
     return <h2>No articles found.</h2>
   }
   return (
-    <div>
+    <>
+      {renderPaging()}
       <div className='grid md:grid-cols-2 gap-8'>
         {articles.map((article) => {
           return (
@@ -40,7 +62,8 @@ const ArticlesList: FC = () => {
           )
         })}
       </div>
-    </div>
+      {renderPaging()}
+    </>
   )
 }
 export default ArticlesList

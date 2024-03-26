@@ -89,7 +89,7 @@ export async function getAllArticlesAction({
   search,
   articleStatus,
   page = 1,
-  limit = 2,
+  limit = 8,
 }: GetAllArticlesActionType): Promise<{
   articles: ArticleType[]
   count: number
@@ -125,14 +125,23 @@ export async function getAllArticlesAction({
       }
     }
 
+    const skip = (page - 1) * limit
+
     const articles: ArticleType[] = await prisma.article.findMany({
       where: whereClause,
+      skip: skip,
+      take: limit,
       orderBy: {
         createdAt: 'desc',
       },
     })
 
-    return { articles, count: 0, page: 1, totalPages: 0 }
+    const count: number = await prisma.article.count({
+      where: whereClause,
+    })
+    const totalPages: number = Math.ceil(count / limit)
+
+    return { articles, count: count, page: page, totalPages: totalPages }
   } catch (error) {
     console.warn(f, 'error →', error)
     return { articles: [], count: 0, page: 1, totalPages: 0 }
